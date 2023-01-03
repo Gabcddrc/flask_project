@@ -1,5 +1,5 @@
 # flask_project
 
-##reaact + flask
+## reaact + flask
 
 ![Screenshot](sample.png)
