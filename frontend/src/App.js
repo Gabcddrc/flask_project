@@ -2,9 +2,18 @@ import './App.css';
 import React, {useState, useEffect} from 'react';
 import Button from '@mui/material/Button';
 
+
+
 function App() {
   const [currentTime, setCurrentTime] = useState(0);
   const [meme_url, setMeme_url] = useState("");
+
+  function fetch_meme(){
+    fetch("/meme").then(res => res.json()).then(data => {setMeme_url(data.meme_url)});
+  }
+  function open_image(){
+    window.open(meme_url);
+  }
 
   useEffect(() => {
     setInterval ( () => {
@@ -14,29 +23,25 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log('hello')
-    fetch("/meme").then(res => res.json()).then(data => {setMeme_url(data.meme_url
-      )})
+    fetch_meme()
   }, []);
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={meme_url} width='30%'height='30%' className="meme" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
+        <p>A meme just for you</p>
+
+        <img src={meme_url} width='40%'height='40%' className="meme" alt="logo" />
+
+        {/* <p>The current time is {currentTime}.</p> */}
+        <p><Button variant="contained" onClick={() => {fetch_meme()}}>Get Another Meme</Button>
+          <br></br>
+          <br></br>
+        <Button variant="contained" onClick={() => {open_image()}}>Original Image</Button>
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <p>The current time is {currentTime}.</p>
-        <p><Button variant="contained" onClick={() => {console.log('hello');}}>Hello World</Button></p>
+  
       </header>
+      <body></body>
 
     </div>
   );

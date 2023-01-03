@@ -16,6 +16,11 @@ def get_current_time():
 def get_random_meme():
     url = "https://meme-api.com/gimme/1"
     response = requests.request("GET", url)
-    meme_url = response.json()["memes"][0]['url']
+    
+    meme = response.json()["memes"][0]
+    url = meme['url']
+    title = meme['title']
+    subreddit = meme['subreddit']
+    
 
-    return {'meme_url': meme_url}
+    return {'meme_url': url, "meme_title": title, "meme_subreddit": subreddit}
